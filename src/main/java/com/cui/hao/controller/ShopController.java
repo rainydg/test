@@ -41,10 +41,7 @@ public class ShopController {
 			 List<Trx> tr = contentService.geitTrx();
 			 for(Product product : pl){
 				 for(Trx trx :tr){
-//					 if(trx.getPersonId()==user.getId()){
-//						 product.setisSell(true);
-//					      }
-					  if(trx.getProductId()==product.getId()){
+					  if(trx !=null && trx.getProductId()==product.getId()){
 						  product.setisBuy(true);
 						  product.setisSell(true);
 					        }
@@ -81,12 +78,11 @@ public class ShopController {
 	public String show( @RequestParam("id") int id,HttpServletRequest req,ModelMap map) throws UnsupportedEncodingException {
 		
 		 User user = (User) req.getSession().getAttribute("user");
-//		 ArrayList<Product> psd = new ArrayList<Product>();
 		 Product pt =  contentService.putProuct(id);
 		 if(user !=null){
 		  List<Trx> tr = contentService.geitTrx();
 		    for(Trx trx :tr){
-				if(trx.getProductId()==pt.getId()){
+				if(trx !=null && trx.getProductId()==id){
 					pt.setisBuy(true);
 					pt.setBuyprice(trx.getPrice());
 				           }  
